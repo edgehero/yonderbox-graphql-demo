@@ -1,0 +1,32 @@
+{
+  "name": "yonderbox-graphql-demo",
+  "version": "1.0.0",
+  "description": "YondeBox GraphQL Demo featuring Contentful to MongoDB mapping",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEBUG=* nodemon index.js",
+    "fetch": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --schema-path abstract.schema.json --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes",
+    "import": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --schema-path abstract.schema.json --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-backup",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorisroling/yonderbox-graphql-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorisroling/yonderbox-graphql-demo/issues"
+  },
+  "homepage": "https://github.com/jorisroling/yonderbox-graphql-demo#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.16.1",
+    "express": "^4.17.1",
+    "yonderbox-graphql-mongodb-adapter": "^1.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.5"
+  }
+}
