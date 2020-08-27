@@ -1,11 +1,17 @@
 const express = require('express')
-const path = require('path')
 const { ApolloServer } = require('apollo-server-express')
-const gql = require('graphql-tag')
 const { GraphQLScalarType } = require('graphql')
+const gql = require('graphql-tag')
+
+const path = require('path')
+const createError = require('http-errors')
 
 const port = parseInt(process.env.PORT) || 3100
 const grapQLpath = '/graphql/'
+const yves = require('yves')
+const pkg = require('./package.json')
+const debug = yves.debugger(pkg.name.replace(/-/g,':'))
+const objectHash = require('object-hash')
 
 const setup = {
   enabled: true,
@@ -102,26 +108,69 @@ const options = {
         debug('resonse: %y %s',error.extensions.response && error.extensions.response.url,error.message)
         delete error.extensions // Hides error.extensions as 404 response are not considered an error
       }
-      // delete error.extensions.exception.stacktrace // Hides inner workings when in production
+      delete error.extensions.exception.stacktrace // Hides inner workings when in production
     }
     return error
   },
 
-  tracing: true,
+  tracing: false,
   cacheControl: {
     calculateHttpHeaders: true,
     defaultMaxAge: 30,
     stripFormattedExtensions: true,
   },
 }
-// if (cache) {
-//   options.cache = cache
-//   options.persistedQueries =  { cache }
-// }
 
 const apolloServer = new ApolloServer(options)
 
 const app = express()
+
+app.use(express.json({limit: '1mb'}))
+
+app.use(async function(req, res, next) {
+
+  const preprocessedCache = {}
+  debug('hi')
+  async function preprocessVariablesRecursive(param,datasources) {
+    if (typeof(param) == 'object') {
+      for (let key in param) {
+        param[key] = await preprocessVariablesRecursive(param[key],datasources)
+      }
+      if (param && typeof(param.$list) == 'object' && typeof(param.$list.datasource) == 'string' && typeof(param.$list.collection) == 'string' && typeof(param.$list.filter) == 'object') {
+        if (datasources[param.$list.datasource] && typeof(datasources[param.$list.datasource].query) == 'function') {
+          const paramHash = objectHash(param)
+          debug('preprocess %y',param)
+          if (!preprocessedCache[paramHash]) {
+            const data = await datasources[param.$list.datasource].query(param.$list.collection, param.$list.filter, {},{ res })
+            preprocessedCache[paramHash] = data.map(entry => entry[param.$list.field || '_id'])
+          }
+          return preprocessedCache[paramHash]
+        } else {
+          throw new Error(`Unknown or incompattible datasource '${param.$list.datasource}' for variable preprocessing`)
+        }
+      }
+    }
+    return param
+  }
+
+  if (req && (req.query && req.query.variables) || (req.body && req.body.variables)) {
+    const datasources = dataSources
+    const container =  (req.body && req.body.variables) ? 'body' : 'query'
+
+    debug('Raw variables (in %s): %y',container,req.body.variables)
+    try {
+      req[container].variables = await preprocessVariablesRecursive(req[container].variables,datasources)
+      debug('Preprocessed variables (in %s): %y',container,req.body.variables)
+      next()
+    } catch(e) {
+      debug('error %y',e)
+      next(e)
+    }
+  } else {
+    next()
+  }
+})
+
 
 apolloServer.applyMiddleware({
   app,
