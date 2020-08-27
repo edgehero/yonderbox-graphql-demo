@@ -16,7 +16,7 @@ const objectHash = require('object-hash')
 const setup = {
   enabled: true,
   url: 'mongodb://localhost:3001',
-  db: 'juke',
+  db: 'abstract',
   options: {
     keepAlive: 1,
     connectTimeoutMS: 30000,
@@ -24,7 +24,7 @@ const setup = {
     // reconnectInterval: 5000,
   },
   schema: path.resolve('./abstract.schema.json'),
-  root: 'Juke',
+  root: 'Abstract',
   dataloader: {
     maxBatchSize:512
   },
@@ -70,12 +70,12 @@ Date: new GraphQLScalarType({
 
 const Adapter = require('yonderbox-graphql-mongodb-adapter')
 
-const { schema, resolvers } = Adapter.moduleSetup(setup,'juke')
+const { schema, resolvers } = Adapter.moduleSetup(setup,'abstract')
 
 const typeDefs = [ basicSchema,schema ]
 const dataSources = {}
 
-Adapter.build(setup,'juke').then(ds => dataSources.juke = ds )
+Adapter.build(setup,'abstract').then(ds => dataSources.abstract = ds )
 
 const options = {
   typeDefs,
@@ -124,6 +124,10 @@ const options = {
 const apolloServer = new ApolloServer(options)
 
 const app = express()
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'html')
+app.engine('html', require('hbs').__express)
 
 app.use(express.json({limit: '1mb'}))
 
