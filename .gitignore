@@ -3,3 +3,4 @@ data
 .DS_Store
 *.schema.json
 *.graphql
+fetch.sh

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "DEBUG=* nodemon index.js",
     "fetch": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --schema-path abstract.schema.json --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes",
-    "import": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --schema-path abstract.schema.json --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-backup",
+    "import": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --schema-path abstract.schema.json --skip-backup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
