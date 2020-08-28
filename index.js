@@ -11,7 +11,6 @@ const grapQLpath = '/graphql/'
 const yves = require('yves')
 const pkg = require('./package.json')
 const debug = yves.debugger(pkg.name.replace(/-/g,':'))
-const objectHash = require('object-hash')
 
 const setup = {
   enabled: true,
