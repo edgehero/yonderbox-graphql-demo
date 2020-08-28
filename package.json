@@ -1,10 +1,10 @@
 {
   "name": "yonderbox-graphql-demo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YondeBox GraphQL Demo featuring Contentful to MongoDB mapping",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=yonderbox:graphql:demo  nodemon index.js",
+    "start": "DEBUG=yonderbox:graphql:demo,*preprocess*  nodemon index.js",
     "fetch-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name abstract --schema-path abstract.schema.json --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes",
     "import-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name abstract --mongodb-url mongodb://localhost:3001 --schema-path abstract.schema.json --skip-backup",
     "test": "echo \"Error: no test specified\" && exit 1"

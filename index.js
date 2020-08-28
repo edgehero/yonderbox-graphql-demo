@@ -132,47 +132,7 @@ app.engine('html', require('hbs').__express)
 app.use(express.json({limit: '1mb'}))
 
 app.use(async function(req, res, next) {
-
-  const preprocessedCache = {}
-  debug('hi')
-  async function preprocessVariablesRecursive(param,datasources) {
-    if (typeof(param) == 'object') {
-      for (let key in param) {
-        param[key] = await preprocessVariablesRecursive(param[key],datasources)
-      }
-      if (param && typeof(param.$list) == 'object' && typeof(param.$list.datasource) == 'string' && typeof(param.$list.collection) == 'string' && typeof(param.$list.filter) == 'object') {
-        if (datasources[param.$list.datasource] && typeof(datasources[param.$list.datasource].query) == 'function') {
-          const paramHash = objectHash(param)
-          debug('preprocess %y',param)
-          if (!preprocessedCache[paramHash]) {
-            const data = await datasources[param.$list.datasource].query(param.$list.collection, param.$list.filter, {},{ res })
-            preprocessedCache[paramHash] = data.map(entry => entry[param.$list.field || '_id'])
-          }
-          return preprocessedCache[paramHash]
-        } else {
-          throw new Error(`Unknown or incompattible datasource '${param.$list.datasource}' for variable preprocessing`)
-        }
-      }
-    }
-    return param
-  }
-
-  if (req && (req.query && req.query.variables) || (req.body && req.body.variables)) {
-    const datasources = dataSources
-    const container =  (req.body && req.body.variables) ? 'body' : 'query'
-
-    debug('Raw variables (in %s): %y',container,req.body.variables)
-    try {
-      req[container].variables = await preprocessVariablesRecursive(req[container].variables,datasources)
-      debug('Preprocessed variables (in %s): %y',container,req.body.variables)
-      next()
-    } catch(e) {
-      debug('error %y',e)
-      next(e)
-    }
-  } else {
-    next()
-  }
+  Adapter.preProcessVariables(req,res).then( () => next() )
 })
 
 
