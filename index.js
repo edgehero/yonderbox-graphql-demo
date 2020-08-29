@@ -1,7 +1,5 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
-const { GraphQLScalarType } = require('graphql')
-const gql = require('graphql-tag')
 
 const path = require('path')
 const createError = require('http-errors')
@@ -22,7 +20,7 @@ const setup = {
     // reconnectTries: Number.MAX_VALUE,
     // reconnectInterval: 5000,
   },
-  schema: path.resolve('./abstract.schema.json'),
+  schema: path.resolve('./spaces/abstract.schema.json'),
   root: 'Abstract',
   dataloader: {
     maxBatchSize:512
@@ -34,54 +32,18 @@ const setup = {
   writeGraphQLfile:true,
 }
 
-
-const basicSchema = gql`
-"A date"
-scalar Date
-
-"A object"
-scalar Object
-
-"Root Query for querying data"
-#@cacheControl(maxAge: 30)
-type Query
-
-`
-
-const basicResolvers = {
-Date: new GraphQLScalarType({
-  name: 'Date',
-  description: 'Date custom scalar type',
-  parseValue(value) {
-    return new Date(value) // value from the client
-  },
-  serialize(value) {
-    return value.toUTCString() // value sent to the client
-  },
-  parseLiteral(ast) {
-    if (ast.kind === Kind.INT) {
-      return new Date(ast.value) // ast value is always in string format
-    }
-    return null
-  },
-}),
-}
-
 const Adapter = require('yonderbox-graphql-mongodb-adapter')
 
-const { schema, resolvers } = Adapter.moduleSetup(setup,'abstract')
+Adapter.setIntrospect({name:pkg.name,version:pkg.version,config:setup})
 
-const typeDefs = [ basicSchema,schema ]
-const dataSources = {}
-
-Adapter.build(setup,'abstract').then(ds => dataSources.abstract = ds )
+Adapter.register('abstract',setup)
 
 const options = {
-  typeDefs,
-  resolvers,
-  dataSources:() => dataSources,
-  schemaDirectives: {},
-  context:require('yonderbox-graphql-mongodb-adapter').context,
+  typeDefs: Adapter.typeDefs(),
+  resolvers:  Adapter.resolvers(),
+  dataSources: Adapter.dataSources,
+  schemaDirectives: Adapter.schemaDirectives(),
+  context:Adapter.context,
 
   debug: true, // print stack traces, not on prod! XXX
 
@@ -130,8 +92,12 @@ app.engine('html', require('hbs').__express)
 
 app.use(express.json({limit: '1mb'}))
 
-app.use(async function(req, res, next) {
-  Adapter.preProcessVariables(req,res).then( () => next() )
+Adapter.applyMiddleware({
+  app,
+  home: grapQLpath,
+  preProcessVariables: true,
+  logGraphQL: true,
+  metrics:true,
 })
 
 
@@ -141,9 +107,6 @@ apolloServer.applyMiddleware({
   cors: false, // we use espress
 })
 
-app.get('/', function(req, res) {
-  res.redirect(grapQLpath)
-})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

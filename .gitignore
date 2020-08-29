@@ -1,5 +1,6 @@
 node_modules
 data
+spaces
 .DS_Store
 *.schema.json
 *.graphql
