@@ -10,33 +10,46 @@ const yves = require('yves')
 const pkg = require('./package.json')
 const debug = yves.debugger(pkg.name.replace(/-/g,':'))
 
-const setup = {
-  enabled: true,
-  url: 'mongodb://localhost:3001',
-  db: 'abstract',
-  options: {
-    keepAlive: 1,
-    connectTimeoutMS: 30000,
-    // reconnectTries: Number.MAX_VALUE,
-    // reconnectInterval: 5000,
-  },
-  schema: path.resolve('./spaces/abstract.schema.json'),
-  root: 'Abstract',
-  dataloader: {
-    maxBatchSize:512
-  },
-  introspect: {
-    enabled: true,
-  },
-  limit:1000,
-  writeGraphQLfile:true,
-}
-
 const Adapter = require('yonderbox-graphql-mongodb-adapter')
 
-Adapter.setIntrospect({name:pkg.name,version:pkg.version,config:setup})
 
-Adapter.register('abstract',setup)
+const setups = {}
+const glob = require('glob')
+
+const setupFiles = glob.sync(path.join(__dirname,'spaces')+'/*.js', {})
+for (let f=0; f<setupFiles.length; f++) {
+  const name = path.basename(setupFiles[f], '.js')
+  const setup = require(setupFiles[f])
+  if (setup) {
+    setups[name] = setup
+    Adapter.register(name,setup)
+  }
+}
+
+// const setup = {
+//   enabled: true,
+//   url: 'mongodb://localhost:3001',
+//   db: 'abstract',
+//   options: {
+//     keepAlive: 1,
+//     connectTimeoutMS: 30000,
+//     // reconnectTries: Number.MAX_VALUE,
+//     // reconnectInterval: 5000,
+//   },
+//   schema: path.resolve('./spaces/abstract.schema.json'),
+//   root: 'Abstract',
+//   dataloader: {
+//     maxBatchSize:512
+//   },
+//   introspect: {
+//     enabled: true,
+//   },
+//   limit:1000,
+//   writeGraphQLfile:true,
+// }
+
+Adapter.setIntrospect({name:pkg.name,version:pkg.version,setup:setups})
+
 
 const options = {
   typeDefs: Adapter.typeDefs(),
