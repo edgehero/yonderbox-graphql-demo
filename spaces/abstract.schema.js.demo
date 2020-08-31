@@ -1,0 +1,27 @@
+const path = require('path')
+
+module.exports = {
+  enabled: true,
+
+  /* Full MongoDB connection URL */
+  url: 'mongodb://<host>:<port>',
+  /* MongoDB database name */
+  db: 'abstract',
+  options: {
+    keepAlive: 1,
+    connectTimeoutMS: 30000,
+  },
+  /* Full pathh to Abstract Schema file */
+  schema: path.resolve(path.join(__dirname,'./abstract.schema.json')),
+  /* Datasource name */
+  root: 'Abstract',
+
+  dataloader: {
+    maxBatchSize:512
+  },
+  introspect: {
+    enabled: true,
+  },
+  limit:1000,
+  writeGraphQLfile:true,
+}
