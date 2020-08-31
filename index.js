@@ -15,6 +15,7 @@ const Adapter = require('yonderbox-graphql-mongodb-adapter')
 
 const setups = {}
 const glob = require('glob')
+const { response } = require('express')
 
 const setupFiles = glob.sync(path.join(__dirname,'spaces')+'/*.js', {})
 for (let f=0; f<setupFiles.length; f++) {
@@ -54,9 +55,12 @@ Adapter.setIntrospect({name:pkg.name,version:pkg.version,setup:setups})
 const options = {
   typeDefs: Adapter.typeDefs(),
   resolvers:  Adapter.resolvers(),
-  dataSources: Adapter.dataSources,
+  dataSources: Adapter.dataSources, // function
   schemaDirectives: Adapter.schemaDirectives(),
-  context:Adapter.context,
+  context:Adapter.context, // function
+  plugins: Adapter.plugins({
+    useJsonPath: true, // This will see if a '_path' variable exists and then process the GraphQL result with JSONpath. See for '_path' options https://goessner.net/articles/JsonPath/index.html#e2
+  }),
 
   debug: true, // print stack traces, not on prod! XXX
 
@@ -69,7 +73,6 @@ const options = {
       'editor.cursorShape': 'line',
     },
   },
-
   // Response handling
   formatResponse: response => {
     return response
