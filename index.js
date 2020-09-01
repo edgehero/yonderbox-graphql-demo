@@ -15,7 +15,6 @@ const Adapter = require('yonderbox-graphql-mongodb-adapter')
 
 const setups = {}
 const glob = require('glob')
-const { response } = require('express')
 
 const setupFiles = glob.sync(path.join(__dirname,'spaces')+'/*.js', {})
 for (let f=0; f<setupFiles.length; f++) {
@@ -108,16 +107,13 @@ app.engine('html', require('hbs').__express)
 
 app.use(express.json({limit: '1mb'}))
 
-app.get('/monitor', function (req, res, next) {
-  res.send('OK')
-})
-
 Adapter.applyMiddleware({
   app,
-  home: grapQLpath,
+  redirectRoot: grapQLpath,
   preProcessVariables: true,
   logGraphQL: true,
   metrics:true,
+  monitor:true,
 })
 
 
