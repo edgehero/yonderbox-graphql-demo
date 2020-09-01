@@ -108,6 +108,10 @@ app.engine('html', require('hbs').__express)
 
 app.use(express.json({limit: '1mb'}))
 
+app.get('/monitor', function (req, res, next) {
+  res.send('OK')
+})
+
 Adapter.applyMiddleware({
   app,
   home: grapQLpath,
