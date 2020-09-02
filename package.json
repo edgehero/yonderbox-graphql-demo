@@ -1,6 +1,6 @@
 {
   "name": "yonderbox-graphql-demo",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "YondeBox GraphQL Demo featuring Contentful to MongoDB mapping",
   "main": "index.js",
   "scripts": {
@@ -31,10 +31,10 @@
     "glob": "^7.1.6",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.18"
+    "yonderbox-graphql-mongodb-adapter": "^1.0.19"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
-    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.18"
+    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.19"
   }
 }
