@@ -15,9 +15,11 @@ module.exports = {
   schema: path.resolve(path.join(__dirname,'./abstract.schema.json')),
   /* Datasource name */
   root: 'Abstract',
-
   dataloader: {
-    maxBatchSize:512
+    enabled: true,
+    options: {
+      maxBatchSize:512
+    },
   },
   introspect: {
     enabled: true,
