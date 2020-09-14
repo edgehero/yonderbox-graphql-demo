@@ -1,3 +1,5 @@
+process.env.TZ = 'Europe/Amsterdam'
+
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 
