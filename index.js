@@ -1,5 +1,6 @@
 process.env.TZ = 'Europe/Amsterdam'
 
+const http = require('http')
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 
@@ -125,6 +126,8 @@ apolloServer.applyMiddleware({
   cors: false, // we use espress
 })
 
+const httpServer = http.createServer(app)
+apolloServer.installSubscriptionHandlers(httpServer)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -143,6 +146,7 @@ app.use(function(err, req, res, next) {
   res.render('error')
 })
 
-app.listen({ port} , () => {
+httpServer.listen({ port} , () => {
   debug(`🚀  YonderBox GraphQL Demo Server ready at http://localhost:${port}${grapQLpath}`)
+  debug(`🚀  YonderBox GraphQL Demo Subscriptions ready at ws://localhost:${port}${apolloServer.subscriptionsPath}`)
 })
