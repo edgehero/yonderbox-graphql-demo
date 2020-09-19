@@ -57,6 +57,23 @@ Adapter.setIntrospect({name:pkg.name,version:pkg.version,setup:setups})
 const options = {
   typeDefs: Adapter.typeDefs(),
   resolvers:  Adapter.resolvers(),
+  subscriptions: {
+    onConnect: (connectionParams, webSocket) => {
+      debug('connectionParams %y',connectionParams)
+      return {}
+      // if (connectionParams.authToken) {
+      //   return validateToken(connectionParams.authToken)
+      //     .then(findUser(connectionParams.authToken))
+      //     .then(user => {
+      //       return {
+      //         currentUser: user,
+      //       };
+      //     });
+      // }
+
+      // throw new Error('Missing auth token!');
+    },
+  },  
   dataSources: Adapter.dataSources, // function
   schemaDirectives: Adapter.schemaDirectives(),
   context:Adapter.context, // function
@@ -125,7 +142,6 @@ apolloServer.applyMiddleware({
   path: grapQLpath,
   cors: false, // we use espress
 })
-
 const httpServer = http.createServer(app)
 apolloServer.installSubscriptionHandlers(httpServer)
 
@@ -148,5 +164,5 @@ app.use(function(err, req, res, next) {
 
 httpServer.listen({ port} , () => {
   debug(`🚀  YonderBox GraphQL Demo Server ready at http://localhost:${port}${grapQLpath}`)
-  debug(`🚀  YonderBox GraphQL Demo Subscriptions ready at ws://localhost:${port}${apolloServer.subscriptionsPath}`)
+  debug(`🚀  YonderBox GraphQL Demo Server Subscriptions ready at ws://localhost:${port}${apolloServer.subscriptionsPath}`)
 })
