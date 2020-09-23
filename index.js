@@ -56,24 +56,8 @@ Adapter.setIntrospect({name:pkg.name,version:pkg.version,setup:setups})
 
 const options = {
   typeDefs: Adapter.typeDefs(),
-  resolvers:  Adapter.resolvers(),
-  subscriptions: {
-    onConnect: (connectionParams, webSocket) => {
-      debug('connectionParams %y',connectionParams)
-      return {}
-      // if (connectionParams.authToken) {
-      //   return validateToken(connectionParams.authToken)
-      //     .then(findUser(connectionParams.authToken))
-      //     .then(user => {
-      //       return {
-      //         currentUser: user,
-      //       };
-      //     });
-      // }
-
-      // throw new Error('Missing auth token!');
-    },
-  },  
+  resolvers: Adapter.resolvers(),
+  subscriptions: Adapter.subscriptions(),
   dataSources: Adapter.dataSources, // function
   schemaDirectives: Adapter.schemaDirectives(),
   context:Adapter.context, // function
