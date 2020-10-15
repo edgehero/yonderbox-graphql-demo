@@ -26,15 +26,15 @@
   },
   "homepage": "https://github.com/jorisroling/yonderbox-graphql-demo#readme",
   "dependencies": {
-    "apollo-server-express": "^2.18.1",
+    "apollo-server-express": "^2.18.2",
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.37"
+    "yonderbox-graphql-mongodb-adapter": "^1.0.38"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.5",
     "yonderbox-contentful-mongodb-abstract-schema": "^1.0.36"
   }
 }
