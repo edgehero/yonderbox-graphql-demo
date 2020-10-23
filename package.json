@@ -31,10 +31,10 @@
     "glob": "^7.1.6",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.40"
+    "yonderbox-graphql-mongodb-adapter": "^1.0.41"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
-    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.39"
+    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.40"
   }
 }
