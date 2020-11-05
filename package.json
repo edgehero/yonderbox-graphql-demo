@@ -31,7 +31,7 @@
     "glob": "^7.1.6",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.44"
+    "yonderbox-graphql-mongodb-adapter": "^1.0.45"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
