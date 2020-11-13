@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "DEBUG=* nodemon index.js",
+    "start": "DEBUG=* nodemon --max-http-header-size=32768 index.js",
     "prestart-dev": "npm run link-all",
-    "start-dev": "npm start",
+    "start-dev": "npm start -- --max-http-header-size=32768",
     "link-all": "npm link yonderbox-graphql-colors;npm link yonderbox-graphql-mongodb-adapter;npm link yonderbox-contentful-mongodb-abstract-schema",
     "start-old": "DEBUG=yonderbox:graphql:demo,*preprocess*  nodemon index.js",
     "fetch-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes --config-filename ./spaces/juke.js",
