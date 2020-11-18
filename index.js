@@ -111,6 +111,13 @@ app.engine('html', require('hbs').__express)
 
 app.use(express.json({limit: '1mb'}))
 
+
+
+app.use( ( req, res, next ) => {
+  res.setHeader( 'X-Powered-By', `${pkg.name} v${pkg.version}` )
+  next()
+})
+
 Adapter.applyMiddleware({
   app,
   redirectRoot: grapQLpath,
