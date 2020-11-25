@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "DEBUG=* nodemon --max-http-header-size=32768 index.js",
+    "start": "DEBUG=yonderbox* nodemon --watch ../yonderbox-graphql-colors --watch ../yonderbox-graphql-mongodb-adapter --watch ../yonderbox-contentful-mongodb-abstract-schema --max-http-header-size=32768 index.js",
     "prestart-dev": "npm run link-all",
     "start-dev": "npm start -- --max-http-header-size=32768",
     "link-all": "npm link yonderbox-graphql-colors;npm link yonderbox-graphql-mongodb-adapter;npm link yonderbox-contentful-mongodb-abstract-schema",

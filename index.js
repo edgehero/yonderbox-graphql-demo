@@ -81,9 +81,9 @@ const options = {
     return response
   },
   formatError: error => {
-    if (error && error.extensions) {
+    if (error && error.extensions && error.extensions.code != 'PERSISTED_QUERY_NOT_FOUND' ) {
       if (!(error.extensions.code == 'INTERNAL_SERVER_ERROR' && error.extensions.response && error.extensions.response.status == 404)) {
-        debug('error: %s %y',error.toString(),error.extensions.exception.stacktrace)
+        debug('error: %y %s %y',error.extensions.code,error.toString(),error.extensions.exception.stacktrace)
       } else {
         debug('resonse: %y %s',error.extensions.response && error.extensions.response.url,error.message)
         delete error.extensions // Hides error.extensions as 404 response are not considered an error
@@ -125,6 +125,7 @@ Adapter.applyMiddleware({
   logGraphQL: true,
   metrics:true,
   monitor:true,
+  cacheInvalidate: true,
 })
 
 
