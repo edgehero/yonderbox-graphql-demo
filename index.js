@@ -99,6 +99,9 @@ const options = {
     defaultMaxAge: 30,
     stripFormattedExtensions: true,
   },
+  persistedQueries: {
+    cache: Adapter.mongodbCache('queries','query')
+  },
 }
 
 const apolloServer = new ApolloServer(options)
