@@ -28,11 +28,13 @@
   "homepage": "https://github.com/jorisroling/yonderbox-graphql-demo#readme",
   "dependencies": {
     "apollo-server-express": "^2.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.45"
+    "yonderbox-graphql-mongodb-adapter": "^1.0.45",
+    "yves": "^1.0.75"
   },
   "devDependencies": {
     "eslint": "^7.15.0",
