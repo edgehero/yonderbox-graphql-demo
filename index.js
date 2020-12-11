@@ -108,6 +108,8 @@ const apolloServer = new ApolloServer(options)
 
 const app = express()
 
+/*app.use(require('cors'))*/
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 app.engine('html', require('hbs').__express)
@@ -135,7 +137,11 @@ Adapter.applyMiddleware({
 apolloServer.applyMiddleware({
   app,
   path: grapQLpath,
-  cors: false, // we use espress
+/*  cors: false, // we use espress*/
+  cors: {
+      origin: '*',      // <- allow request from all domains
+      credentials: true,
+  },
 })
 const httpServer = http.createServer(app)
 apolloServer.installSubscriptionHandlers(httpServer)
