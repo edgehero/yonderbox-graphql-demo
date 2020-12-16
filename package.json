@@ -13,7 +13,7 @@
     "fetch-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes --config-filename ./spaces/juke.js",
     "import-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --skip-backup --spaces-dir --config-filename ./spaces/juke.js",
     "import": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --skip-backup --spaces-dir spaces --config-filename ./spaces/juke.schema.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -37,9 +37,11 @@
     "yves": "^1.0.75"
   },
   "devDependencies": {
+    "apollo-boost": "^0.4.9",
     "eslint": "^7.15.0",
     "eslint-plugin-jest": "^24.1.3",
     "jest": "^26.6.3",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.6",
     "yonderbox-contentful-mongodb-abstract-schema": "^1.0.45"
   }
