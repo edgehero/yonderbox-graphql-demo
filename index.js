@@ -137,10 +137,10 @@ Adapter.applyMiddleware({
 apolloServer.applyMiddleware({
   app,
   path: grapQLpath,
-/*  cors: false, // we use espress*/
+  /*  cors: false, // we use espress*/
   cors: {
-      origin: '*',      // <- allow request from all domains
-      credentials: true,
+    origin: '*',      // <- allow request from all domains
+    credentials: true,
   },
 })
 const httpServer = http.createServer(app)
