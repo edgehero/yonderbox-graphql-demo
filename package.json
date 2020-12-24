@@ -1,6 +1,6 @@
 {
   "name": "yonderbox-graphql-demo",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "YondeBox GraphQL Demo featuring Contentful to MongoDB mapping",
   "main": "index.js",
   "scripts": {
