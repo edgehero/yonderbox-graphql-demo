@@ -1,7 +1,7 @@
 const { ApolloClient, gql } = require('apollo-boost')
 const { InMemoryCache } = require('apollo-cache-inmemory')
 const { createHttpLink } = require('apollo-link-http')
-const { JSONPath } = require('jsonpath-plus');
+/*const { JSONPath } = require('jsonpath-plus')*/
 
 
 const graphQL = new ApolloClient({
@@ -60,13 +60,13 @@ fragment imageFragment on Juke_Image {
 `
 
     const variables = {
-	"filter": {
-		"title": {
-			"$regex": "radio",
-			"$options": "i"
-		}
-	}
-}
+      'filter': {
+        'title': {
+          '$regex': 'radio',
+          '$options': 'i'
+        }
+      }
+    }
 
     const match = {
       data: {
@@ -87,11 +87,11 @@ fragment imageFragment on Juke_Image {
         }
       }
     }
-/*    await expect(graphQL.query({query,variables})).resolves.toMatchObject({data: {__typename: 'Query'}  })*/
-/*    await expect(graphQL.query({query,variables})).resolves.toEqual(expect.objectContaining(match))*/
+    /*    await expect(graphQL.query({query,variables})).resolves.toMatchObject({data: {__typename: 'Query'}  })*/
+    /*    await expect(graphQL.query({query,variables})).resolves.toEqual(expect.objectContaining(match))*/
     await expect(graphQL.query({query,variables})).resolves.toMatchObject(match)
 
-/*const result = JSONPath({path: '...', json});*/
+    /*const result = JSONPath({path: '...', json});*/
 
   })
   /*  it('should successfully create a user with valid credentials', async() => {
