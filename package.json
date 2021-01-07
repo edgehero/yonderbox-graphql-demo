@@ -13,7 +13,7 @@
     "fetch-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes --config-filename ./spaces/juke.js",
     "import-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --skip-backup --spaces-dir --config-filename ./spaces/juke.js",
     "import": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --skip-backup --spaces-dir spaces --config-filename ./spaces/juke.schema.json",
-    "test": "jest"
+    "test": "DEBUG=yonderbox:* jest"
   },
   "repository": {
     "type": "git",
@@ -28,16 +28,19 @@
   "homepage": "https://github.com/jorisroling/yonderbox-graphql-demo#readme",
   "dependencies": {
     "apollo-server-express": "^2.19.1",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "glob": "^7.1.6",
+    "graphql-tag": "^2.11.0",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
     "yonderbox-graphql-mongodb-adapter": "^1.0.50",
     "yves": "^1.0.75"
   },
   "devDependencies": {
-    "apollo-boost": "^0.4.9",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
+    "apollo-link-persisted-queries": "^0.2.2",
     "eslint": "^7.17.0",
     "eslint-plugin-jest": "^24.1.3",
     "install": "^0.13.0",

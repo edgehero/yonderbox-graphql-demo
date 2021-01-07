@@ -19,6 +19,8 @@ module.exports = {
     'no-unused-vars': ['error', {
       'args': 'none'
     }],
+    'space-infix-ops': ['error', { 'int32Hint': false }],
+    'space-in-parens': ['error', 'always'],
     'jest/no-commented-out-tests': 'off',
     'no-async-promise-executor': 'off',
     // 'no-unused-vars': 'off',
