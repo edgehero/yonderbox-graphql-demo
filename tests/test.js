@@ -7,16 +7,17 @@ const { ApolloLink } = require( 'apollo-link' )
 
 const gql = require( 'graphql-tag' )
 
-const fetch = require( 'node-fetch' )
+const nodeFetch = require( 'node-fetch' )
 
 const path = require( 'path' )
 const fs = require( 'fs' )
 const glob = require( 'glob' )
+const _ = require( 'lodash' )
 
 const graphQLdirectURL = 'http://localhost:3100/graphql'
 const graphQLproxyURL = 'http://localhost/graphql'
 
-const proxy = true
+const proxy = false
 const persistedQueries = true
 const testProxyCacheHit = false
 const useGETForQueries = false
@@ -41,6 +42,11 @@ const graphQL2 = new ApolloClient  ( {
 */
 
 
+function fetch(url,options) {
+  debug('fetch %y %y',url,options)
+  _.set(options,'headers.user-agent',`${pkg.name} v${pkg.version}`)
+  return nodeFetch(url,options)
+}
 
 function createApolloClient( initialState = {} ) {
 
