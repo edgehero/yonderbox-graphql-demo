@@ -28,6 +28,15 @@ const pkg = require( '../package.json' )
 const yves = require( 'yves' )
 const debug = yves.debugger( pkg.name.replace( /-/g,':' ) )
 
+const match_basic = {
+  data: {
+    headers: expect.objectContaining( {
+      'x-powered-by': `${pkg.name} v${pkg.version}`,
+    } )
+  }
+}
+
+
 /*
 const { createHttpLink } = require( 'apollo-link-http' )
 
@@ -42,10 +51,10 @@ const graphQL2 = new ApolloClient  ( {
 */
 
 
-function fetch(url,options) {
-  debug('fetch %y %y',url,options)
-  _.set(options,'headers.user-agent',`${pkg.name} v${pkg.version}`)
-  return nodeFetch(url,options)
+function fetch( url,options ) {
+/*  debug('fetch %y %y',url,options)*/
+  _.set( options,'headers.user-agent',`${pkg.name} v${pkg.version}` )
+  return nodeFetch( url,options )
 }
 
 function createApolloClient( initialState = {} ) {
@@ -107,9 +116,20 @@ const queries = {}
 const queryFiles = glob.sync( path.join( __dirname,'queries' ) + '/*.graphql', {} )
 for ( let f = 0; f < queryFiles.length; f++ ) {
   const name = path.basename( queryFiles[f], '.graphql' )
-  const query = fs.readFileSync( queryFiles[f] )
+  const query = fs.readFileSync( queryFiles[f],'utf-8' )
   if ( query ) {
     queries[name] = gql `${query}`
+  }
+}
+
+const variables = {}
+const variableFiles = glob.sync( path.join( __dirname,'queries' ) + '/*.json', {} )
+for ( let f = 0; f < variableFiles.length; f++ ) {
+  const name = path.basename( variableFiles[f], '.json' )
+  const vars = fs.readFileSync( variableFiles[f],'utf-8' )
+  if ( vars && vars.length ) {
+    /*    debug('vars %y %y',vars,f)*/
+    variables[name] = JSON.parse( vars )
   }
 }
 
@@ -130,7 +150,7 @@ describe( 'Tests the Yonderbox GraphQL MongoDB Adapter', () => {
         } )
       }
     }
-    const respons = graphQL.query( {query} ) //.then( data => console.log(data) )
+    //    const respons = graphQL.query( {query} ) //.then( data => console.log(data) )
     await expect( graphQL.query( {query} ) ).resolves.toMatchObject( match )
 
     if ( testProxyCacheHit ) {
@@ -214,6 +234,18 @@ describe( 'Tests the Yonderbox GraphQL MongoDB Adapter', () => {
     const query = queries['filtered_sections']
     await expect( graphQL.query( {query,variables} ) ).resolves.toMatchObject( match )
 
+  } )
+
+  it( 'should handle query "juke_demo"', async() => {
+    await expect( graphQL.query( {query:queries['juke_demo'],variables:variables['juke_demo']} ) ).resolves.toMatchObject( match_basic )
+  } )
+
+  it( 'should handle query "juke_call_1"', async() => {
+    await expect( graphQL.query( {query:queries['juke_call_1'],variables:variables['juke_call_1']} ) ).resolves.toMatchObject( match_basic )
+  } )
+
+  it( 'should handle query "juke_call_2"', async() => {
+    await expect( graphQL.query( {query:queries['juke_call_2'],variables:variables['juke_call_2']} ) ).resolves.toMatchObject( match_basic )
   } )
 
 } )
