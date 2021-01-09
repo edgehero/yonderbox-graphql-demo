@@ -41,6 +41,10 @@ module.exports = {
     'semi': [
       'error',
       'never'
+    ],
+    'jest/no-standalone-expect': [
+      'error',
+      { 'additionalTestBlockFunctions': ['each.test','itif'] }
     ]
   }
 }

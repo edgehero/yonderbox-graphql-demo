@@ -21,14 +21,14 @@ const proxy = true
 const persistedQueries = false
 const testProxyCacheHit = true
 const useGETForHashedQueries = true
-const useGETForQueries = (persistedQueries && useGETForHashedQueries) ? false : true
+const useGETForQueries = ( persistedQueries && useGETForHashedQueries ) ? false : true
 const clearCache = true
 
 const pkg = require( '../package.json' )
 const yves = require( 'yves' )
-const debug = yves.debugger( pkg.name.replace( /-/g,':' ) )
+const debug = yves.debugger( pkg.name.replace( /-/g,':' ) ) // eslint-disable-line no-unused-vars
 
-const itif = (condition) => condition ? it : it.skip;
+const itif = ( condition ) => condition ? it : it.skip
 
 const match_basic = {
   data: {
@@ -38,7 +38,7 @@ const match_basic = {
   }
 }
 
-
+/*debug( 'Yonderbox GraphQL demo' )*/
 /*
 const { createHttpLink } = require( 'apollo-link-http' )
 
@@ -110,9 +110,9 @@ function createApolloClient( {clearCache, persistedQueries } = {} ) {
 
 
 
-const graphQLinitial = createApolloClient({clearCache})
+const graphQLinitial = createApolloClient( {clearCache} )
 const graphQLfollowup = createApolloClient()
-const graphQLpersistedQuesies = createApolloClient({persistedQueries})
+const graphQLpersistedQuesies = createApolloClient( {persistedQueries} ) // eslint-disable-line no-unused-vars
 
 
 
@@ -120,7 +120,7 @@ const queries = {}
 const queryFiles = glob.sync( path.join( __dirname,'queries' ) + '/*.graphql', {} )
 for ( let f = 0; f < queryFiles.length; f++ ) {
   const name = path.basename( queryFiles[f], '.graphql' )
-  const query = fs.readFileSync( queryFiles[f],'utf-8' ).replace(/Fragment/g,`Fragment_${name}`)
+  const query = fs.readFileSync( queryFiles[f],'utf-8' ).replace( /Fragment/g,`Fragment_${name}` )
   if ( query ) {
     queries[name] = gql `${query}`
   }
@@ -157,7 +157,7 @@ describe( 'Tests the Yonderbox GraphQL MongoDB Adapter', () => {
     await expect( graphQLinitial.query( {query} ) ).resolves.toMatchObject( match )
   } )
 
-  itif(proxy && testProxyCacheHit && (useGETForQueries || (persistedQueries && useGETForHashedQueries)))( 'should handle the most basic query "query {__typename}" from cache', async() => {
+  itif( proxy && testProxyCacheHit && ( useGETForQueries || ( persistedQueries && useGETForHashedQueries ) ) )( 'should handle the most basic query "query {__typename}" from cache', async() => {
     const query = gql `query {__typename}`
     const match = {
       data:{
@@ -248,52 +248,11 @@ describe( 'Tests the Yonderbox GraphQL MongoDB Adapter', () => {
 
   } )
 
-if (0) {
-  Object.keys(queries).forEach(key =>
-    it( `should handle query key "${key}"`, async() => {
+  Object.keys( queries ).forEach( key =>
+    it( `should handle query file "${key}.graphql"`, async() => {
       await expect( graphQLinitial.query( {query:queries[key],variables:variables[key]} ) ).resolves.toMatchObject( match_basic )
     } )
   )
-}
 
-  if (1) {
-  it( 'should handle query "juke_demo"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_demo'],variables:variables['juke_demo']} ) ).resolves.toMatchObject( match_basic )
-  } )
 
-  it( 'should handle query "juke_call_1"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_call_1'],variables:variables['juke_call_1']} ) ).resolves.toMatchObject( match_basic )
-  } )
-
-  it( 'should handle query "juke_call_2"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_call_2'],variables:variables['juke_call_2']} ) ).resolves.toMatchObject( match_basic )
-  } )
-
-  it( 'should handle query "juke_home_overview_demo"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_home_overview_demo'],variables:variables['juke_home_overview_demo']} ) ).resolves.toMatchObject( match_basic )
-  } )
-
-  it( 'should handle query "juke_home_overview_demo"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_home_overview_demo'],variables:variables['juke_home_overview_demo']} ) ).resolves.toMatchObject( match_basic )
-  } )
-  it( 'should handle query "juke_introspect"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_introspect'],variables:variables['juke_introspect']} ) ).resolves.toMatchObject( match_basic )
-  } )
-  it( 'should handle query "juke_multiples"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_multiples'],variables:variables['juke_multiples']} ) ).resolves.toMatchObject( match_basic )
-  } )
-  it( 'should handle query "juke_mutation_update"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_mutation_update'],variables:variables['juke_mutation_update']} ) ).resolves.toMatchObject( match_basic )
-  } )
-  it( 'should handle query "juke_mutation_insert"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_mutation_insert'],variables:variables['juke_mutation_insert']} ) ).resolves.toMatchObject( match_basic )
-  } )
-  it( 'should handle query "juke_mutation_delete"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_mutation_delete'],variables:variables['juke_mutation_delete']} ) ).resolves.toMatchObject( match_basic )
-  } )
-  it( 'should handle query "juke_test"', async() => {
-    await expect( graphQLinitial.query( {query:queries['juke_test'],variables:variables['juke_test']} ) ).resolves.toMatchObject( match_basic )
-  } )
-}
-
-  } )
+} )
