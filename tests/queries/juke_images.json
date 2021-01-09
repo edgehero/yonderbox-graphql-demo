@@ -1,0 +1,13 @@
+{
+	"_dataloader": true,
+	"no_path": "$..images",
+	"imageFilter": {
+		"profiles": {
+			"_lookup": {
+				"_adapter": "juke",
+				"_collection": "profiles",
+				"slug": "juke-app"
+			}
+		}
+	}
+}

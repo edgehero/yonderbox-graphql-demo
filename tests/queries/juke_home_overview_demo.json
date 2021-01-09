@@ -1,0 +1,21 @@
+{
+	"_dataloader": true,
+	"no_path": "$..introspect_images",
+	"filter": {
+		"slug": "juke-app-home"
+	},
+	"imageFilter": {
+		"profiles": {
+			"_lookup": {
+				"_adapter": "juke",
+				"_collection": "profiles",
+				"slug": "juke-app"
+			}
+		}
+	},
+	"recentFilter": {
+		"meta.updatedAt": {
+			"$lt": "2021-01-01T00:00:00.000Z"
+		}
+	}
+}

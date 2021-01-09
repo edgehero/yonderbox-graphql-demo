@@ -1,0 +1,14 @@
+{
+	"filter": {
+		"slug": "juke-app-home"
+	},
+	"imageFilter": {
+		"profiles": {
+			"_lookup": {
+				"_adapter": "juke",
+				"_collection": "profiles",
+				"slug": "juke-app"
+			}
+		}
+	}
+}

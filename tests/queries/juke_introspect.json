@@ -1,0 +1,29 @@
+{
+	"no_path": "$..introspect_images",
+	"collectionFilter": {
+		"slug": {
+			"$in": [
+				"radiozenders",
+				"non-stop-playlists",
+				"stations-juke"
+			]
+		}
+	},
+	"slug": [
+		"radiozenders",
+		"non-stop-playlists",
+		"stations-juke"
+	],
+	"profileFilter": {
+		"profiles": {
+			"_list": {
+				"adapter": "juke",
+				"collection": "profiles",
+				"filter": {
+					"slug": "juke-app"
+				},
+				"field": "_id"
+			}
+		}
+	}
+}
