@@ -34,7 +34,7 @@
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
     "lodash": "^4.17.20",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.50",
+    "yonderbox-graphql-mongodb-adapter": "^1.0.51",
     "yves": "^1.0.75"
   },
   "devDependencies": {
@@ -48,6 +48,6 @@
     "jest": "^26.6.3",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
-    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.47"
+    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.48"
   }
 }
