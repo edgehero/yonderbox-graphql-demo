@@ -13,7 +13,10 @@ module.exports = {
       NODE_ENV: 'development'
     },
     env_production: {
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      APOLLO_KEY: 'service:YonderBox-y0xdgn:tu6XKQtzc7muPorhcCQURA',
+      APOLLO_GRAPH_VARIANT: 'current',
+      APOLLO_SCHEMA_REPORTING: true
     }
   }],
 
