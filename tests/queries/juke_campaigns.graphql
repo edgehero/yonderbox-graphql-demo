@@ -1,0 +1,25 @@
+{
+  introspect {
+    name
+    version
+    meta
+  }
+  juke {
+    campaigns {
+      _id
+      title
+       slug
+       description
+       notes
+       options
+       uri
+       dynamicPopupJson
+       metadata {_id}
+
+    }
+  }
+  epilogue: introspect {
+    report
+    queries
+  }
+}
