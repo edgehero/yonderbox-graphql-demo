@@ -1,0 +1,23 @@
+mutation {
+  juke(token: "soho") {
+    insert {
+      campaign(title: "Title", slug: "test8x2") {
+        _id
+        title
+        slug
+        description
+      }
+      campaigns(_data: [
+        {title: "Title", slug: "test8h2"}
+        {title: "Title", slug: "test8i2"}
+        {title: "Title", slug: "test8j2"}
+        {title: "Title", slug: "test8k2"}
+      ] ) {
+        _id
+        title
+        slug
+        description
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+query test {
+  introspect {
+    name
+    version
+  }
+  yonderbox(token: "test") {
+    introspect_articles(text:"*achter*" _limit:5) {
+      filter
+      options
+    }
+    article(_id:"1541636447",title:"Transferoverzicht*")
+    {
+      _id
+    }
+    articles(text:"*AUGUSTUS*" _limit:5) {
+      _id
+      title
+      text
+    }
+  }
+  juke {
+    introspect_stations(title:"Radio 538*",_limit:5) {
+      filter
+      options
+#       explain
+    }
+    stations(title:"Radio 538",_limit:5) {
+      _id
+      title
+      description
+    }
+  }
+  abstract {
+    stations(_id: "2hc843x8XGWeiM0GkuMQga",_limit:5) {
+      title
+      description
+    }
+  }
+  introspect {
+    setup
+    queries
+  }
+}

@@ -17,7 +17,7 @@ const _ = require( 'lodash' )
 const graphQLdirectURL = 'http://localhost:3100/graphql'
 const graphQLproxyURL = 'http://localhost/graphql'
 
-const proxy = true
+const proxy = false
 const persistedQueries = true
 const testProxyCacheHit = true
 const useGETForHashedQueries = true

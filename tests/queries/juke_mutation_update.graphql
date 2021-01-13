@@ -1,0 +1,16 @@
+mutation {
+  juke(token: "soho") {
+    update {
+      asset(_id: "003Vp0GdLq4Ocz6odej3J", _data: {joris: "gek"}) {
+        _id
+        images {
+          title
+        }
+        introspect_images {
+          collection
+          filter
+        }
+      }
+    }
+  }
+}

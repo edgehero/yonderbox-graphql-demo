@@ -1,0 +1,32 @@
+query juke($filter: Object) {
+  introspect {
+    name
+    version
+    meta
+  }
+  juke {
+    collections(_filter: {slug: "juke-app-home"}) {
+      title
+      slug
+      items(_filter: $filter) {
+        ... on Juke_Section {
+          title
+          images {
+            ...imageFragment
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment imageFragment on Juke_Image {
+  _id
+  image {
+    _id
+    file {
+      url
+    }
+    description
+  }
+}

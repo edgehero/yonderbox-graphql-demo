@@ -1,0 +1,64 @@
+query call1($slug: String!) {
+  introspect {
+    name
+    version
+    duration
+    report
+    queries
+  }
+  juke {
+    collections(slug: $slug) {
+      _id
+      title
+      slug
+      type
+      images {
+        __typename
+        ...ImageFragment
+      }
+      items {
+        ... on Juke_Section {
+          __typename
+          _id
+          title
+          images {
+            ...ImageFragment
+          }
+          config {
+            ...ConfigFragment
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment ImageFragment on Juke_Image {
+  __typename
+  _id
+  title
+  description
+  imageType
+  image {
+    file {
+      url
+    }
+  }
+}
+
+fragment ConfigFragment on Juke_Config {
+  __typename
+  _id
+  introspect_entries {collection filter}
+  entries {
+#     __typename
+    ...ConfigEntryFragment
+  }
+}
+
+fragment ConfigEntryFragment on Juke_ConfigEntry {
+  __typename
+  _id
+  key
+  value
+}

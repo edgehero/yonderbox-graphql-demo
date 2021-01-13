@@ -1,0 +1,12 @@
+mutation {
+  juke(token: "soho") {
+    delete {
+      campaign(_id: "HK6fbwhdw8SXCzdQfsq9kx") {
+        _id
+      }
+      campaigns(_data:[{slug:"test8x2"},{slug:"test8h2"},{slug:"test8i2"},{slug:"test8j2"},{slug:"test8k2"}]) {
+        _id
+      }
+    }
+  }
+}

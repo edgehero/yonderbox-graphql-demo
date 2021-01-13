@@ -2,7 +2,7 @@ node_modules
 data
 .DS_Store
 *.schema.json
-*.graphql
+juke.graphql
 fetch.sh
 
 jj

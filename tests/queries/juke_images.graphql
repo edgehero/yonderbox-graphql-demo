@@ -1,0 +1,36 @@
+query test($imageFilter: Object) {
+  introspect {
+    name
+    version
+    markers
+    report
+#    queries
+  }
+  juke {
+    images(_filter: $imageFilter) {
+      ...imageFragment
+    }
+  }
+#   epilogue: introspect {
+#    queries
+#   }
+}
+
+fragment imageFragment on Juke_Image {
+  profiles {
+    slug
+    title
+  }
+  image {
+    title
+    file {
+      url
+      details {
+        image {
+          width
+          height
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,272 @@
+#$slug: [String]!,
+query call2($collectionFilter: Object, $profileFilter: Object,) {
+  introspect {
+    name
+    version
+    duration
+    report
+    queries
+  }
+  juke {
+    #profile: $profile, ,slug: $slug
+    collections(_filter:$collectionFilter) {
+#       __typename
+#       ...StationCollectionFragment
+      title
+      type
+      items {
+        ... on Juke_Station {
+          __typename
+          title
+          #(_filter: $profileFilter)
+          media {
+            title
+            source
+#             people {
+#               title
+#               slug
+#               description
+#             }
+            uri
+          }
+#           introspect_images(_filter: $profileFilter) {
+#             filter
+#             explain
+#           }
+
+          images(_filter: $profileFilter) {
+            ...ImageFragment
+          }
+        }
+        ... on Juke_Section {
+          __typename
+          title
+          refs {
+            ... on Juke_Collection {
+              __typename
+              title
+              items {
+                ... on Juke_Section {
+                  __typename
+                  id: _id
+                  title
+                  images {
+                    ...ImageFragment
+                  }
+                }
+                ... on Juke_Show {
+                  __typename
+                  title
+                  images {
+                    ...ImageFragment
+                  }
+                }
+                ... on Juke_Station {
+                  __typename
+                  title
+                  media {
+                    uri
+                  }
+#                   introspect_images(_filter: $profileFilter) {
+#                     filter
+#                   }
+
+                  images(_filter: $profileFilter) {
+                    ...ImageFragment
+                  }
+                }
+                ... on Juke_Tag {
+                  __typename
+                  title
+                  images {
+                    ...ImageFragment
+                  }
+                }
+                ... on Juke_Podcast {
+                  __typename
+                  title
+                  images {
+                    ...ImageFragment
+                  }
+                }
+                ... on Juke_Promotion {
+                  __typename
+                  title
+                  images {
+                    ...ImageFragment
+                  }
+                }
+                ... on Juke_Campaign {
+                  __typename
+                  title
+                  images {
+                    ...ImageFragment
+                  }
+                }
+              }
+            }
+            ... on Juke_GeneratedCollection {
+              __typename
+              title
+              images {
+                ...ImageFragment
+              }
+            }
+            ... on Juke_Person {
+              __typename
+              title
+              images {
+                ...ImageFragment
+              }
+            }
+            ... on Juke_Podcast {
+              __typename
+              title
+              images {
+                ...ImageFragment
+              }
+            }
+            ... on Juke_Show {
+              __typename
+              title
+              images {
+                ...ImageFragment
+              }
+            }
+            ... on Juke_Station {
+              __typename
+              title
+              images {
+                ...ImageFragment
+              }
+            }
+            ... on Juke_Tag {
+              __typename
+              title
+              images {
+                ...ImageFragment
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# fragment StationCollectionFragment on Juke_Collection {
+#   __typename
+#   title
+#   type
+#   slug
+#   images {
+#     __typename
+#     ...ImageFragment
+#   }
+#   items {
+#     __typename
+#     ...StationFragment
+#   }
+# }
+
+# fragment ImageFragment on Juke_Image {
+#   __typename
+#   _id
+#   title
+#   image {
+#     file {
+#       url
+#     }
+#   }
+#   description
+#   imageType
+# }
+
+# fragment StationFragment on Juke_Station {
+#   __typename
+#   _id
+#   #type
+
+#   title
+#   slug
+#   shortTitle
+#   media {
+#     __typename
+#     ...MediaFragment
+#   }
+#   images(_filter: $profileFilter) {
+#     __typename
+#     ...ImageFragment
+#   }
+# #   refs {
+# #     __typename
+# #     ...RefFragment
+# #   }
+#   config {
+#     __typename
+#     ...ConfigFragment
+#   }
+#   tags {
+#     __typename
+#     ...ItemTagFragment
+#   }
+# }
+
+# fragment MediaFragment on Juke_Medium {
+#   __typename
+#   _id
+#   title
+#   uri
+#   source
+# }
+
+# # fragment RefFragment on Juke_Ref {
+# #   __typename
+# #   uri
+# #   targetType
+# # }
+
+# fragment ConfigFragment on Juke_Config {
+#   __typename
+#   _id
+# #   type
+#   entries {
+#     __typename
+#     ...ConfigEntryFragment
+#   }
+# }
+
+# fragment ConfigEntryFragment on Juke_ConfigEntry {
+#   __typename
+#   _id
+# #   type
+#   key
+#   value
+# }
+
+# fragment ItemTagFragment on Juke_Tag {
+#   __typename
+#   title
+#   type
+# }
+
+
+fragment ImageFragment on Juke_Image {
+  profiles {
+    slug
+    title
+  }
+  image {
+    title
+    file {
+      url
+      details {
+        image {
+          width
+          height
+        }
+      }
+    }
+  }
+}
+

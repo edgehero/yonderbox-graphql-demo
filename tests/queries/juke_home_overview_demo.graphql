@@ -1,0 +1,169 @@
+#
+query test($profileFilter: Object, $recentFilter: Object) {
+  introspect {
+    name
+    version
+    duration
+  }
+  juke {
+    introspect_collection(_filter: $recentFilter,slug: "juke-app-home") {
+      filter
+      options
+      data
+    }
+    collection(_filter: $recentFilter,slug: "juke-app-home") {
+      meta {
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+        publishedAt
+        publishedBy
+        publishedVersion
+        publishedCounter
+        firstPublishedAt
+        version
+      }
+      title
+      slug
+      type
+      items {
+        ... on Juke_Section {
+          __typename
+          title
+          refs {
+            ... on Juke_Collection {
+              __typename
+              title
+              items {
+                ... on Juke_Section {
+                  __typename
+                  id: _id
+                  title
+                  images(_filter:$profileFilter) {
+                    ...imageFragment
+                  }
+                }
+                ... on Juke_Show {
+                  __typename
+                  title
+                  images {
+                    ...imageFragment
+                  }
+                }
+                ... on Juke_Station {
+                  __typename
+                  title
+                  media {
+                    uri
+                  }
+#                   introspect_images(_filter: $profileFilter) {
+#                     filter
+#                   }
+
+#                   images(_filter: $profileFilter) {
+                  images {
+                    ...imageFragment
+                  }
+                }
+                ... on Juke_Tag {
+                  __typename
+                  title
+                  images {
+                    ...imageFragment
+                  }
+                }
+                ... on Juke_Podcast {
+                  __typename
+                  title
+                  images {
+                    ...imageFragment
+                  }
+                }
+                ... on Juke_Promotion {
+                  __typename
+                  title
+                  images {
+                    ...imageFragment
+                  }
+                }
+                ... on Juke_Campaign {
+                  __typename
+                  title
+                  images {
+                    ...imageFragment
+                  }
+                }
+              }
+            }
+            ... on Juke_GeneratedCollection {
+              __typename
+              title
+              images {
+                ...imageFragment
+              }
+            }
+            ... on Juke_Person {
+              __typename
+              title
+              images {
+                ...imageFragment
+              }
+            }
+            ... on Juke_Podcast {
+              __typename
+              title
+              images {
+                ...imageFragment
+              }
+            }
+            ... on Juke_Show {
+              __typename
+              title
+              images {
+                ...imageFragment
+              }
+            }
+            ... on Juke_Station {
+              __typename
+              title
+              images {
+                ...imageFragment
+              }
+            }
+            ... on Juke_Tag {
+              __typename
+              title
+              images {
+                ...imageFragment
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  epilogue: introspect {
+    report
+    queries
+  }
+}
+
+fragment imageFragment on Juke_Image {
+  profiles {
+    slug
+    title
+  }
+  image {
+    title
+    file {
+      url
+      details {
+        image {
+          width
+          height
+        }
+      }
+    }
+  }
+}
