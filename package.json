@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "start": "DEBUG=${DEBUG:yonderbox}  nodemon --watch ../yonderbox-graphql-colors --watch ../yonderbox-graphql-mongodb-adapter --watch ../yonderbox-contentful-mongodb-abstract-schema --max-http-header-size=32768 index.js",
     "prestart-dev": "npm run link-all",
-    "start-dev": "npm start -- --max-http-header-size=32768",
+    "start-dev": "npm start",
     "link-all": "npm link yonderbox-graphql-colors;npm link yonderbox-graphql-mongodb-adapter;npm link yonderbox-contentful-mongodb-abstract-schema",
     "start-old": "DEBUG=yonderbox:graphql:demo,*preprocess*  nodemon index.js",
     "fetch-backup": "DEBUG=* yonderbox-contentful-mongodb-abstract-schema --data-dir data --schema-name juke --management-token $MANAGEMENT_TOKEN  --space-id $SPACE_ID --environment-id master --skip-entries --skip-assets --skip-locales --skip-drop-collections --skip-create-collections --skip-create-indexes --config-filename ./spaces/juke.js",
@@ -34,7 +34,7 @@
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
     "lodash": "^4.17.20",
-    "yonderbox-graphql-mongodb-adapter": "^1.0.51",
+    "yonderbox-graphql-mongodb-adapter": "^1.0.52",
     "yves": "^1.0.75"
   },
   "devDependencies": {
@@ -48,6 +48,6 @@
     "jest": "^26.6.3",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
-    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.48"
+    "yonderbox-contentful-mongodb-abstract-schema": "^1.0.49"
   }
 }
