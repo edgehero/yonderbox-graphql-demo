@@ -18,11 +18,11 @@ const graphQLdirectURL = 'http://localhost:3100/graphql'
 const graphQLproxyURL = 'http://localhost/graphql'
 
 const proxy = true
-const persistedQueries = false
+const persistedQueries = true
 const testProxyCacheHit = true
 const useGETForHashedQueries = true
 const useGETForQueries = ( persistedQueries && useGETForHashedQueries ) ? false : true
-const clearCache = true
+const clearCache = false
 
 const pkg = require( '../package.json' )
 const yves = require( 'yves' )
@@ -111,8 +111,8 @@ function createApolloClient( {clearCache, persistedQueries } = {} ) {
 
 
 const graphQLinitial = createApolloClient( {clearCache} )
-const graphQLfollowup = createApolloClient()
-const graphQLpersistedQuesies = createApolloClient( {persistedQueries} ) // eslint-disable-line no-unused-vars
+const graphQLfollowup = persistedQueries ? createApolloClient( {persistedQueries} ) : createApolloClient()
+/*const graphQLpersisted = createApolloClient( {persistedQueries} ) // eslint-disable-line no-unused-vars*/
 
 
 
