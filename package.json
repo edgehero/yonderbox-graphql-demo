@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/jorisroling/yonderbox-graphql-demo#readme",
   "dependencies": {
-    "apollo-server-express": "^2.19.1",
+    "apollo-server-express": "^2.19.2",
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "graphql-tag": "^2.11.0",
