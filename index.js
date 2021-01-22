@@ -67,15 +67,23 @@ const options = {
 
   debug: true, // print stack traces, not on prod! XXX
 
+
   // Enable playground in prod
   introspection: true,
   playground: {
-    endpoint: '/graphql/',
+    // endpoint: '/graphql/',
     settings: {
       'request.credentials': 'include',
       'editor.cursorShape': 'line',
+      'schema.polling.enable': false,
     },
-  },
+    // tabs: [
+    //   {
+    //     endpoint: '/tab',
+    //     query: '{ __typename }',
+    //   },
+    // ],
+},
   // Response handling
   formatResponse: response => {
     return response
