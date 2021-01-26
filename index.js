@@ -71,7 +71,7 @@ const options = {
   // Enable playground in prod
   introspection: true,
   playground: {
-    // endpoint: '/graphql/',
+    endpoint: '/graphql/',
     settings: {
       'request.credentials': 'include',
       'editor.cursorShape': 'line',
@@ -79,8 +79,8 @@ const options = {
     },
     // tabs: [
     //   {
-    //     endpoint: '/tab',
-    //     query: '{ __typename }',
+    //     endpoint: 'tab',
+    //     query: '# DEMO\n{ __typename }',
     //   },
     // ],
 },
